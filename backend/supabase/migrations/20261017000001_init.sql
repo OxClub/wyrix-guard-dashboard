@@ -84,7 +84,7 @@ create index devices_owner on public.devices (owner_id) where revoked_at is null
 create or replace function public.devices_before_insert() returns trigger
 language plpgsql security definer set search_path = public as $$
 begin
-  new.key_fingerprint := encode(digest(decode(new.public_key, 'base64'), 'sha256'), 'hex');
+  new.key_fingerprint := encode(extensions.digest(decode(new.public_key, 'base64'), 'sha256'), 'hex');
   if new.consent_at > now() + interval '5 minutes' or new.consent_at < now() - interval '1 day' then
     raise exception 'invalid_consent_timestamp';
   end if;

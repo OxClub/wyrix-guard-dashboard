@@ -1,6 +1,6 @@
 -- pgTAP. Run: supabase test db   (UNEXECUTED until run against a local/CI Supabase stack)
 begin;
-select plan(20);
+select plan(19);
 
 insert into auth.users (id, email) values
   ('00000000-0000-0000-0000-0000000000a1', 'alice@example.com'),
