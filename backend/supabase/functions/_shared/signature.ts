@@ -27,9 +27,9 @@ export function derToRaw(der: Uint8Array, size = 32): Uint8Array {
 export async function verifyDeviceSignature(spkiB64: string, message: string, sigDerB64: string): Promise<boolean> {
   try {
     const key = await crypto.subtle.importKey(
-      "spki", b64ToBytes(spkiB64), { name: "ECDSA", namedCurve: "P-256" }, false, ["verify"]);
+      "spki", Uint8Array.from(b64ToBytes(spkiB64)).buffer, { name: "ECDSA", namedCurve: "P-256" }, false, ["verify"]);
     return await crypto.subtle.verify(
-      { name: "ECDSA", hash: "SHA-256" }, key, derToRaw(b64ToBytes(sigDerB64)), new TextEncoder().encode(message));
+      { name: "ECDSA", hash: "SHA-256" }, key, Uint8Array.from(derToRaw(b64ToBytes(sigDerB64))).buffer, new TextEncoder().encode(message));
   } catch {
     return false;
   }
