@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: supabase/setup-cli@v1
-        with: { version: latest }
+        with: { version: 2.45.5 }
       - uses: denoland/setup-deno@v2
         with: { deno-version: v2.x }
       - name: Configure Deno npm dependencies
@@ -39,7 +39,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: supabase/setup-cli@v1
-        with: { version: latest }
+        with: { version: 2.45.5 }
       - working-directory: backend
         run: |
           supabase link --project-ref "${{ secrets.SUPABASE_PROJECT_REF }}"
