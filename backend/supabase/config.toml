@@ -1,0 +1,15 @@
+project_id = "wyrix-guard"
+
+[api]
+enabled = true
+
+[db]
+major_version = 15
+
+[functions.contact-verify]
+verify_jwt = false
+[functions.contact-share]
+verify_jwt = false
+[functions.maintenance]
+verify_jwt = false
+# All other functions keep verify_jwt = true (default) AND re-validate the user in code.

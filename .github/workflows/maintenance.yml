@@ -1,0 +1,13 @@
+name: Maintenance (retention, expiry, subscription re-verify)
+on:
+  schedule: [{ cron: "*/15 * * * *" }]
+  workflow_dispatch:
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call maintenance function
+        run: |
+          curl -fsS -X POST "${{ secrets.SUPABASE_URL }}/functions/v1/maintenance" \
+            -H "x-maintenance-secret: ${{ secrets.MAINTENANCE_SECRET }}" \
+            -H "content-type: application/json" -d '{}'

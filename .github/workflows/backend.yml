@@ -1,0 +1,45 @@
+name: Backend (Supabase)
+on:
+  pull_request:
+    paths: ["backend/**"]
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: "Deploy migrations + functions to the linked project"
+        type: boolean
+        default: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: supabase/setup-cli@v1
+        with: { version: latest }
+      - uses: denoland/setup-deno@v2
+        with: { deno-version: v2.x }
+      - name: Deno unit tests
+        run: deno test --allow-env backend/supabase/functions/_shared/shared_test.ts
+      - name: Start local Supabase and run pgTAP RLS tests
+        working-directory: backend
+        run: |
+          supabase start -x realtime,storage-api,imgproxy,edge-runtime,logflare,vector,studio,mailpit,postgres-meta 2>/dev/null || supabase start
+          supabase test db
+
+  deploy:
+    if: github.event_name == 'workflow_dispatch' && inputs.deploy
+    needs: test
+    runs-on: ubuntu-latest
+    environment: production        # require manual approval via environment protection rules
+    env:
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: supabase/setup-cli@v1
+        with: { version: latest }
+      - working-directory: backend
+        run: |
+          supabase link --project-ref "${{ secrets.SUPABASE_PROJECT_REF }}"
+          supabase db push
+          supabase functions deploy
