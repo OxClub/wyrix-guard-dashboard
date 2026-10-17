@@ -18,6 +18,8 @@ jobs:
         with: { version: latest }
       - uses: denoland/setup-deno@v2
         with: { deno-version: v2.x }
+      - name: Configure Deno npm dependencies
+        run: echo '{"nodeModulesDir":"auto"}' > deno.json
       - name: Deno unit tests
         run: deno test --allow-env backend/supabase/functions/_shared/shared_test.ts
       - name: Start local Supabase and run pgTAP RLS tests
