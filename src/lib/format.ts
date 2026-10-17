@@ -57,5 +57,5 @@ export function download(filename: string, content: string | Blob, mime = "text/
 export const EVENT_LABELS: Record<string, string> = {
   FAILED_UNLOCK: "Failed unlock attempt", SIM_CHANGED: "SIM changed", SIM_REMOVED: "SIM removed", SIM_INSERTED: "SIM inserted",
   GEOFENCE_ENTER: "Entered geofence", GEOFENCE_EXIT: "Left geofence", LOST_MODE_ON: "Lost Mode on", LOST_MODE_OFF: "Lost Mode off",
-  ALARM_TRIGGERED: "Alarm triggered", TRACKING_STOPPED: "Tracking stopped", LOW_BATTERY: "Low battery", ADMIN_DISABLED: "Device admin disabled",
+  ALARM_TRIGGERED: "Alarm triggered", TRACKING_STOPPED: "Tracking stopped", LOW_BATTERY: "Low battery", ADMIN_DISABLED: "Device admin disabled", PHOTO_CAPTURED: "Evidence photo captured",
 };

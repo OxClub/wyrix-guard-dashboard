@@ -61,7 +61,7 @@ export default function Settings() {
         <ul className="muted list-disc space-y-1 pl-5">
           <li>Location (with accuracy and time), battery and connection state from devices you enrol, including in the background while tracking is on (the phone shows a persistent notification).</li>
           <li>Security events you enable: failed unlock attempts (needs device administration), SIM state changes, geofence crossings.</li>
-          <li>Optional photos after failed unlocks, only with your explicit opt-in and Android's camera permission.</li>
+          <li>Optional evidence photos, only with your opt-in and camera permission, and only while the Lost Mode or alarm screen is visible on the phone.</li>
           <li>Data is private to your account (row-level security) and encrypted in transit. You can export or delete it at any time; deletion is free.</li>
         </ul>
         <button className="btn-ghost" onClick={() => void exportAll()}>Export my data (JSON)</button>

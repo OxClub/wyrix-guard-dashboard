@@ -31,7 +31,7 @@ function Body({ d }: { d: Device }) {
   return (
     <div className="space-y-4">
       <h1 className="text-2xl font-bold">Evidence gallery · {d.name}</h1>
-      <Notice>Photos exist only if you enabled the optional feature, granted camera permission on the phone, and Android allowed the capture. They are private to your account and deleted automatically after the retention period (7 days free, 30 days Premium).</Notice>
+      <Notice>A photo is taken only if you turned on Evidence photos in the app, granted camera permission, and the Lost Mode or alarm screen is showing on the phone. Nothing is captured in the background. They are private to your account and deleted automatically after the retention period (7 days free, 30 days Premium).</Notice>
       {q.error && <ErrorBox message={q.error} onRetry={q.reload} />}
       {q.loading ? <Loading /> : q.data.length === 0 ? <Empty>No photos captured.</Empty> : (
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
